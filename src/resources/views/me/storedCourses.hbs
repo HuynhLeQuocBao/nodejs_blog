@@ -17,7 +17,7 @@
 
   </div>
 
-  <table class="table mt-4">
+  <table class="table mt-4 table-striped">
     <thead>
       <tr>
         <th scope="col"></th>
@@ -60,9 +60,7 @@
               <p>Bạn có chắc chắn muốn xóa khóa học này?</p>
             </div>
             <div class="modal-footer">
-              <form method="post" name="delete-course-form" action="/courses/{{this._id}}?_method=DELETE">
-                <button id="btn-delete-course" type="submit" class="btn btn-danger">Xóa</button>
-              </form>
+              <button id="btn-delete-course" type="button" class="btn btn-danger">Xóa</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
           </div>
@@ -80,12 +78,28 @@
   </table>
 </form>
 
+<form name="delete-form" method="post"></form>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const checkBoxAll = $('#checkbox-all')
-    const checkBoxItem = $('input[name="courseIds[]"]')
-    const btnCheckAll = $('.btnCheckAll')
-    const containerForm = document.forms['container']
+    var checkBoxAll = $('#checkbox-all')
+    var checkBoxItem = $('input[name="courseIds[]"]')
+    var btnCheckAll = $('.btnCheckAll')
+    var containerForm = document.forms['container']
+    var courseId
+    var btnDelCourse = document.getElementById('btn-delete-course')
+    var deleteForm = document.forms['delete-form']
+
+    $('#delete-course-modal').on('show.bs.modal', function (e) {
+      var btn = $(e.relatedTarget)
+      courseId = btn.data('id')
+    })
+
+    btnDelCourse.onclick = function () {
+      deleteForm.action = `/courses/${courseId}?_method=DELETE`
+      deleteForm.submit()
+    }
+
     
     checkBoxAll.change(function() {
       var isCheckedAll = $(this).prop('checked')
