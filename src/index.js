@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 const route = require('./routes/index.js');
 const db = require('./config/db/index.js');
+const SortMiddleware = require('./app/middlewares/SortMiddleware.js');
 
 //Connect db
 db.connect();
@@ -20,7 +21,9 @@ app.use(
 app.use(express.json());
 
 //HTTP Loggers
-app.use(morgan('combined'));
+app.use(morgan('combined'))
+
+app.use(SortMiddleware)
 
 app.use(express.urlencoded({ extended: true }));
 
