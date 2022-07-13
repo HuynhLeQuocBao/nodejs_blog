@@ -25,12 +25,16 @@
         <th scope="col">#</th>
         <th scope="col">
           Tên khóa học
-          <a href="?_sort&column=name&type=desc">
-            <span class="oi oi-elevator"></span> 
-          </a>
+          {{{sortable 'name' _sort}}}
         </th>
-        <th scope="col">Mô tả</th>
-        <th scope="col">Thời gian xóa</th>
+        <th scope="col">
+          Mô tả
+          {{{sortable 'description' _sort}}}
+        </th>
+        <th scope="col">
+          Thời gian xóa
+          {{{sortable 'deletedAt' _sort}}}
+        </th>
         <th scope="col" colspan="2" style="text-align: center;">Thao tác</th>
       </tr>
     </thead>
